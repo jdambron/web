@@ -18,7 +18,7 @@ type ProvidersProps = {
 }
 
 const unchainedUrls = {
-  ethereum: 'http://localhost:31300/api/v1'
+  ethereum: 'https://api.ethereum.shapeshift.com/api/v1'
 }
 
 export function AppProviders({ children }: ProvidersProps) {
