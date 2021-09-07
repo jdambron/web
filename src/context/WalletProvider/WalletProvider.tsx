@@ -27,7 +27,7 @@ export interface InitialState {
   keyring: Keyring
   adapters: Record<string, unknown> | null
   wallet: HDWallet | NativeHDWallet | null
-  walletInfo: { name: string; icon: string } | null
+  walletInfo: { name: string; icon: string; deviceId: string } | null
   isConnected: boolean
   initialized: boolean
   modal: boolean
@@ -53,7 +53,10 @@ export interface IWalletContext {
 export type ActionTypes =
   | { type: WalletActions.SET_ADAPTERS; payload: Record<string, unknown> }
   | { type: WalletActions.SET_WALLET; payload: HDWallet | null }
-  | { type: WalletActions.SET_WALLET_INFO; payload: { name: string; icon: string } }
+  | {
+      type: WalletActions.SET_WALLET_INFO
+      payload: { name: string; icon: string; deviceId: string }
+    }
   | { type: WalletActions.SET_INITIALIZED; payload: boolean }
   | { type: WalletActions.SET_IS_CONNECTED; payload: boolean }
   | { type: WalletActions.SET_WALLET_MODAL; payload: boolean }
@@ -66,7 +69,14 @@ const reducer = (state: InitialState, action: ActionTypes) => {
     case WalletActions.SET_WALLET:
       return { ...state, wallet: action.payload }
     case WalletActions.SET_WALLET_INFO:
-      return { ...state, walletInfo: { name: action?.payload?.name, icon: action?.payload?.icon } }
+      return {
+        ...state,
+        walletInfo: {
+          name: action?.payload?.name,
+          icon: action?.payload?.icon,
+          deviceId: action?.payload?.deviceId
+        }
+      }
     case WalletActions.SET_INITIALIZED:
       return { ...state, initialized: action.payload }
     case WalletActions.SET_IS_CONNECTED:
